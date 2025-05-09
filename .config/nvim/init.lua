@@ -31,4 +31,5 @@ require('lazy').setup {
   require 'plugins.snacks',
   require 'plugins.outline',
   require 'plugins.neotest-phpunit',
+  require 'plugins.debugging',
 }

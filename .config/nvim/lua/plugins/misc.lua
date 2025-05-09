@@ -41,4 +41,5 @@ return {
       require('colorizer').setup()
     end,
   },
+  { 'nvim-neotest/nvim-nio' },
 }
