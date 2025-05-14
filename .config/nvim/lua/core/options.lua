@@ -49,3 +49,11 @@ vim.o.foldlevel = 0
 vim.o.foldenable = true
 vim.o.foldlevelstart = 99
 vim.o.foldminlines = 1 -- Avoids folding sections that are too small
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})

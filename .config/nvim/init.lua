@@ -32,4 +32,7 @@ require('lazy').setup {
   require 'plugins.outline',
   require 'plugins.neotest-phpunit',
   require 'plugins.debugging',
+  require 'plugins.avante',
+  require 'plugins.flash',
+  require 'plugins.surround',
 }
