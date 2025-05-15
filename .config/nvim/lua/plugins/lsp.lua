@@ -7,7 +7,7 @@ return {
         'williamboman/mason-lspconfig.nvim',
         config = function()
           require('mason-lspconfig').setup {
-            ensure_installed = { 'intelephense' },
+            ensure_installed = { 'phpactor' },
           }
         end,
       },
@@ -68,16 +68,14 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- PHP
-      require('lspconfig').intelephense.setup {
+      -- Use phpactor instead of intelephense
+      require('lspconfig').phpactor.setup {
+        cmd = { 'phpactor', 'language-server' },
         capabilities = capabilities,
-        settings = {
-          intelephense = {
-            files = {
-              maxSize = 5000000,
-            },
-          },
-        },
+        -- Phpactor LSP may not require special settings, but you can add them here if needed
+        on_attach = function(client, bufnr)
+          -- your additional on_attach if needed
+        end,
       }
 
       -- Go

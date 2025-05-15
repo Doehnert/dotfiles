@@ -35,4 +35,5 @@ require('lazy').setup {
   require 'plugins.avante',
   require 'plugins.flash',
   require 'plugins.surround',
+  require 'plugins.fzf',
 }
