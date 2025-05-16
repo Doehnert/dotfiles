@@ -20,7 +20,7 @@ return {
     { 'nvim-telescope/telescope-ui-select.nvim' },
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
-    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
   },
   config = function()
     -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -51,8 +51,8 @@ return {
         mappings = {
           i = {
             ['<C-k>'] = require('telescope.actions').move_selection_previous, -- move to prev result
-            ['<C-j>'] = require('telescope.actions').move_selection_next, -- move to next result
-            ['<C-l>'] = require('telescope.actions').select_default, -- open file
+            ['<C-j>'] = require('telescope.actions').move_selection_next,     -- move to next result
+            ['<C-l>'] = require('telescope.actions').select_default,          -- open file
           },
         },
       },
@@ -110,5 +110,12 @@ return {
         prompt_title = 'Live Grep in Open Files',
       }
     end, { desc = '[S]earch [/] in Open Files' })
+
+    vim.keymap.set('n', '<leader>sp', function()
+      local folder = vim.fn.input('Grep folder: ', '', 'dir')
+      if folder ~= '' then
+        require('telescope.builtin').live_grep { search_dirs = { folder } }
+      end
+    end, { desc = '[S]earch in [P]icked folder' })
   end,
 }

@@ -5,9 +5,11 @@ return {
       { 'williamboman/mason.nvim', config = true },
       {
         'williamboman/mason-lspconfig.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
         config = function()
           require('mason-lspconfig').setup {
-            ensure_installed = { 'phpactor' },
+            ensure_installed = { 'intelephense' },
+            automatic_installation = true,
           }
         end,
       },
@@ -18,7 +20,7 @@ return {
           'williamboman/mason-lspconfig.nvim',
         },
       },
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
@@ -35,7 +37,10 @@ return {
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          -- map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>ds', function()
+            require('telescope.builtin').treesitter()
+          end, '[D]ocument [S]ymbols via Treesitter')
           map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
@@ -68,28 +73,9 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- Use phpactor instead of intelephense
-      require('lspconfig').phpactor.setup {
-        cmd = { 'phpactor', 'language-server' },
+      -- PHP
+      require('lspconfig').intelephense.setup {
         capabilities = capabilities,
-        -- Phpactor LSP may not require special settings, but you can add them here if needed
-        on_attach = function(client, bufnr)
-          -- your additional on_attach if needed
-        end,
-      }
-
-      -- Go
-      require('lspconfig').gopls.setup {
-        capabilities = capabilities,
-        settings = {
-          gopls = {
-            gofumpt = true,
-            analyses = {
-              unusedparams = true,
-            },
-            staticcheck = true,
-          },
-        },
       }
     end,
   },
