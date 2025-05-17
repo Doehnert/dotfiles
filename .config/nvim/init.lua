@@ -44,4 +44,6 @@ require('lazy').setup {
   require 'plugins.laravel',
   require 'plugins.neorg',
   require 'plugins.oil',
+  require 'plugins.notify',
+  require 'plugins.namespace'
 }

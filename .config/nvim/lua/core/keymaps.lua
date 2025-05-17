@@ -8,6 +8,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'J', '5j', { noremap = true })
 vim.keymap.set('n', 'K', '5k', { noremap = true })
 
+vim.keymap.set('n', '<Leader>k', vim.lsp.buf.hover, { noremap = true, silent = true })
+
 -- For conciseness
 local opts = { noremap = true, silent = true }
 
@@ -76,3 +78,9 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Namespace resolver
+vim.keymap.set('n', '<leader>la', '<cmd>Php classes<cr>', { desc = 'GetClasses', silent = true })
+vim.keymap.set('n', '<leader>lc', '<cmd>Php class<cr>', { desc = 'GetClass', silent = true })
+vim.keymap.set('n', '<leader>ln', '<cmd>Php namespace<cr>', { desc = 'Namespace', silent = true })
+vim.keymap.set('n', '<leader>ls', '<cmd>Php sort<cr>', { desc = 'Sort Classes', silent = true })
