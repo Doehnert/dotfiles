@@ -37,7 +37,7 @@ require('lazy').setup {
   require 'plugins.snacks',
   require 'plugins.neotest-phpunit',
   require 'plugins.debugging',
-  require 'plugins.avante',
+  require 'plugins.codecompanion',
   require 'plugins.flash',
   require 'plugins.surround',
   require 'plugins.fzf',

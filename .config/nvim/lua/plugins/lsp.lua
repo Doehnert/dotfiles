@@ -20,7 +20,7 @@ return {
           'williamboman/mason-lspconfig.nvim',
         },
       },
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
@@ -76,6 +76,21 @@ return {
       -- PHP
       require('lspconfig').intelephense.setup {
         capabilities = capabilities,
+        settings = {
+          intelephense = {
+            environment = {
+              includePaths = { 'vendor' }, -- Add vendor to include paths
+            },
+            files = {
+              maxSize = 5000000,             -- Increase max file size if needed
+              associations = { '**/*.php' }, -- Include PHP files
+              exclude = {},                  -- Make sure vendor is not excluded
+            },
+            diagnostics = {
+              enable = true,
+            },
+          },
+        },
       }
     end,
   },

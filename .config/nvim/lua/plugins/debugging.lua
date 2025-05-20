@@ -30,7 +30,17 @@ return {
       },
     }
 
-    dap.configurations.php = dap.configurations.php or {}
+    dap.configurations.php = {
+      {
+        type = 'php',
+        request = 'launch',
+        name = 'Listen for Xdebug',
+        port = 9003,
+        pathMappings = {
+          ['/var/www/html'] = '${workspaceFolder}',
+        },
+      },
+    }
 
     local function has_config(name)
       for _, config in ipairs(dap.configurations.php) do
