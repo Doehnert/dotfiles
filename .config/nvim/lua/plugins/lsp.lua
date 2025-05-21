@@ -8,7 +8,7 @@ return {
         dependencies = { 'williamboman/mason.nvim' },
         config = function()
           require('mason-lspconfig').setup {
-            ensure_installed = { 'intelephense' },
+            ensure_installed = { 'intelephense', 'pylsp' },
             automatic_installation = true,
           }
         end,
@@ -88,6 +88,25 @@ return {
             },
             diagnostics = {
               enable = true,
+            },
+          },
+        },
+      }
+      -- Python: pylsp
+      require('lspconfig').pylsp.setup {
+        capabilities = capabilities,
+        settings = {
+          pylsp = {
+            plugins = {
+              pyflakes = { enabled = false },
+              pycodestyle = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+              mccabe = { enabled = false },
+              pylsp_mypy = { enabled = false },
+              pylsp_black = { enabled = false },
+              pylsp_isort = { enabled = false },
+              pylint = { enabled = false }, -- Optional: disable if not needed
             },
           },
         },
