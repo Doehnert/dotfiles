@@ -9,18 +9,19 @@ return {
     local formatting = null_ls.builtins.formatting
     local diagnostics = null_ls.builtins.diagnostics
     local helpers = require 'null-ls.helpers'
-    local extras = require 'none-ls.diagnostics.ruff' -- for diagnostics
+    local extras = require 'none-ls.diagnostics.ruff'     -- for diagnostics
     local ruff_format = require 'none-ls.formatting.ruff' -- for formatting
 
     -- Ensure required tools are installed via mason
     require('mason-null-ls').setup {
       ensure_installed = {
-        'prettier', -- JavaScript/TypeScript
-        'stylua', -- Lua
-        'eslint_d', -- JS/TS linter
-        'shfmt', -- Shell
+        'prettier',  -- JavaScript/TypeScript
+        'stylua',    -- Lua
+        'eslint_d',  -- JS/TS linter
+        'shfmt',     -- Shell
         'checkmake', -- Makefiles
-        'ruff', -- Python
+        'ruff',      -- Python
+        'csharpier', -- C#
       },
       automatic_installation = true,
     }
@@ -46,6 +47,7 @@ return {
       diagnostics.checkmake,
       extras.with { extra_args = { '--extend-select', 'I' } },
       ruff_format,
+      formatting.csharpier,
     }
 
     -- Format-on-save

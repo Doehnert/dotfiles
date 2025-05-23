@@ -13,8 +13,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.api.nvim_set_keymap(
-  'n',                          -- normal mode
-  '<Leader>on',                 -- your chosen keybinding (o = neorg leader, n = open notes)
+  'n', -- normal mode
+  '<Leader>on', -- your chosen keybinding (o = neorg leader, n = open notes)
   ':Neorg workspace notes<CR>', -- Neorg command to open your "notes" workspace
   { noremap = true, silent = true }
 )
@@ -45,5 +45,7 @@ require('lazy').setup {
   require 'plugins.neorg',
   require 'plugins.oil',
   require 'plugins.notify',
-  require 'plugins.namespace'
+  require 'plugins.namespace',
+  require 'plugins.noice',
+  require 'plugins.floatterm',
 }

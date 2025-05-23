@@ -8,7 +8,7 @@ return {
         dependencies = { 'williamboman/mason.nvim' },
         config = function()
           require('mason-lspconfig').setup {
-            ensure_installed = { 'intelephense', 'pylsp' },
+            ensure_installed = { 'intelephense', 'pylsp', 'omnisharp' },
             automatic_installation = true,
           }
         end,
@@ -20,11 +20,11 @@ return {
           'williamboman/mason-lspconfig.nvim',
         },
       },
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      -- Your LSP keymap and setup logic
+      -- LSP keymaps and attach logic
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach-php', { clear = true }),
         callback = function(event)
@@ -37,7 +37,6 @@ return {
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-          -- map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
           map('<leader>ds', function()
             require('telescope.builtin').treesitter()
           end, '[D]ocument [S]ymbols via Treesitter')
@@ -73,18 +72,18 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- PHP
+      -- PHP (Intelephense)
       require('lspconfig').intelephense.setup {
         capabilities = capabilities,
         settings = {
           intelephense = {
             environment = {
-              includePaths = { 'vendor' }, -- Add vendor to include paths
+              includePaths = { 'vendor' },
             },
             files = {
-              maxSize = 5000000,             -- Increase max file size if needed
-              associations = { '**/*.php' }, -- Include PHP files
-              exclude = {},                  -- Make sure vendor is not excluded
+              maxSize = 5000000,
+              associations = { '**/*.php' },
+              exclude = {},
             },
             diagnostics = {
               enable = true,
@@ -92,7 +91,8 @@ return {
           },
         },
       }
-      -- Python: pylsp
+
+      -- Python (pylsp)
       require('lspconfig').pylsp.setup {
         capabilities = capabilities,
         settings = {
@@ -106,10 +106,22 @@ return {
               pylsp_mypy = { enabled = false },
               pylsp_black = { enabled = false },
               pylsp_isort = { enabled = false },
-              pylint = { enabled = false }, -- Optional: disable if not needed
+              pylint = { enabled = false },
             },
           },
         },
+      }
+
+      -- C# / .NET
+      local omnisharp_bin = vim.fn.stdpath 'data' .. '/mason/bin/OmniSharp'
+
+      require('lspconfig').omnisharp.setup {
+        cmd = { omnisharp_bin, '-z', '--hostPID', tostring(vim.fn.getpid()) },
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- Disable semantic tokens if you want, or customize here
+          client.server_capabilities.semanticTokensProvider = nil
+        end,
       }
     end,
   },
