@@ -89,3 +89,6 @@ vim.keymap.set('n', '<leader>ls', '<cmd>Php sort<cr>', { desc = 'Sort Classes', 
 
 -- Close NeoVim
 vim.keymap.set('n', '<Leader>qq', '<cmd>qa!<CR>', { desc = 'Force quit Neovim' })
+
+-- Redo
+vim.keymap.set('n', '<Leader>u', 'redo', { desc = 'Redo change' })

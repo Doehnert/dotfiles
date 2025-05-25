@@ -47,5 +47,7 @@ require('lazy').setup {
   require 'plugins.notify',
   require 'plugins.namespace',
   require 'plugins.noice',
-  require 'plugins.floatterm',
+  require 'plugins.nvim-jdtls',
+  require 'plugins.nuget',
+  -- require 'plugins.floatterm',
 }

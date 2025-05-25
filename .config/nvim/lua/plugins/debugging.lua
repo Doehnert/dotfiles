@@ -43,11 +43,11 @@ return {
     }
 
     -- Python Adapter
-    dap.adapters.python = {
-      type = 'executable',
-      command = vim.fn.system('poetry env info -p'):gsub('%s+$', '') .. '/bin/python',
-      args = { '-m', 'debugpy.adapter' },
-    }
+    -- dap.adapters.python = {
+    --   type = 'executable',
+    --   command = vim.fn.system('poetry env info -p'):gsub('%s+$', '') .. '/bin/python',
+    --   args = { '-m', 'debugpy.adapter' },
+    -- }
 
     dap.configurations.python = {
       {
