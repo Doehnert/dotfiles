@@ -29,12 +29,20 @@ return {
     -- Register Laravel Pint manually
     null_ls.register {
       name = 'pint',
-      method = null_ls.methods.FORMATTING,
+      method = require('null-ls').methods.FORMATTING,
       filetypes = { 'php' },
-      generator = helpers.formatter_factory {
+      generator = require('null-ls.helpers').formatter_factory {
         command = 'pint',
-        args = { '--stdin', '--no-interaction' },
+        args = function(params)
+          return {
+            '--quiet',
+            '--no-interaction',
+            '--silent',
+            params.bufname,
+          }
+        end,
         to_stdin = true,
+        ignore_stderr = true,
       },
     }
 

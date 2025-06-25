@@ -8,7 +8,8 @@ return {
         dependencies = { 'williamboman/mason.nvim' },
         config = function()
           require('mason-lspconfig').setup {
-            ensure_installed = { 'intelephense', 'pylsp', 'omnisharp' },
+            -- ensure_installed = { 'intelephense', 'pylsp', 'omnisharp' },
+            ensure_installed = { 'phpactor', 'pylsp', 'omnisharp' },
             automatic_installation = true,
           }
         end,
@@ -72,23 +73,32 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- PHP (Intelephense)
-      require('lspconfig').intelephense.setup {
+      -- -- PHP (Intelephense)
+      -- require('lspconfig').intelephense.setup {
+      --   capabilities = capabilities,
+      --   settings = {
+      --     intelephense = {
+      --       environment = {
+      --         includePaths = { 'vendor' },
+      --       },
+      --       files = {
+      --         maxSize = 5000000,
+      --         associations = { '**/*.php' },
+      --         exclude = {},
+      --       },
+      --       diagnostics = {
+      --         enable = true,
+      --       },
+      --     },
+      --   },
+      -- }
+
+      -- PHP (Phpactor)
+      require('lspconfig').phpactor.setup {
         capabilities = capabilities,
-        settings = {
-          intelephense = {
-            environment = {
-              includePaths = { 'vendor' },
-            },
-            files = {
-              maxSize = 5000000,
-              associations = { '**/*.php' },
-              exclude = {},
-            },
-            diagnostics = {
-              enable = true,
-            },
-          },
+        init_options = {
+          ['language_server_phpstan.enabled'] = false,
+          ['language_server_psalm.enabled'] = false,
         },
       }
 

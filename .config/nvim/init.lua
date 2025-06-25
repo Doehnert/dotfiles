@@ -12,13 +12,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_set_keymap(
-  'n', -- normal mode
-  '<Leader>on', -- your chosen keybinding (o = neorg leader, n = open notes)
-  ':Neorg workspace notes<CR>', -- Neorg command to open your "notes" workspace
-  { noremap = true, silent = true }
-)
-
 -- Set up plugins
 require('lazy').setup {
   require 'plugins.neotree',
@@ -42,12 +35,12 @@ require('lazy').setup {
   require 'plugins.surround',
   require 'plugins.fzf',
   require 'plugins.laravel',
-  require 'plugins.neorg',
   require 'plugins.oil',
   require 'plugins.notify',
   require 'plugins.namespace',
   require 'plugins.noice',
   require 'plugins.nvim-jdtls',
   require 'plugins.nuget',
-  -- require 'plugins.floatterm',
+  require 'plugins.markdown',
+  require 'plugins.floatterm',
 }
